@@ -3,8 +3,10 @@ import "./globals.css";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import ThemeRegistry from "../../components/ThemeRegistry";
-import LoadingScreen from "../../components/LoadingScreen";
-import FloatingWhatsApp from "../../components/FloatingWhatsApp"; // 👈 Import
+import FloatingWhatsApp from "../../components/FloatingWhatsApp";
+
+// ✅ Import ClientWrapper instead of LoadingScreen
+import ClientWrapper from "../../components/ClientWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,11 +31,11 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ThemeRegistry>
-          <LoadingScreen />
+          <ClientWrapper /> {/* ✅ This renders client-only logic safely */}
           <Navbar />
           <main style={{ minHeight: "80vh" }}>{children}</main>
           <Footer />
-          <FloatingWhatsApp /> {/* 👈 Floating button added */}
+          <FloatingWhatsApp />
         </ThemeRegistry>
       </body>
     </html>

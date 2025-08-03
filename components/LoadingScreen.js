@@ -1,7 +1,7 @@
-// components/LoadingScreen.js
 "use client";
 
 import { useEffect, useState } from "react";
+import { Box, Typography } from "@mui/material";
 
 export default function LoadingScreen() {
   const [loading, setLoading] = useState(true);
@@ -9,16 +9,15 @@ export default function LoadingScreen() {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setLoading(false);
-    }, 2000); // Show loader for 2 seconds
-
+    }, 2000);
     return () => clearTimeout(timeout);
   }, []);
 
   if (!loading) return null;
 
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         backgroundColor: "#0A0908",
         color: "#FCFCFC",
         position: "fixed",
@@ -35,29 +34,27 @@ export default function LoadingScreen() {
         transition: "opacity 0.3s ease",
       }}
     >
-      <div className="loader" />
-      <p style={{ marginTop: "20px", fontSize: "1.2rem" }}>Welcome To Eleos Wellness...</p>
+      <Box
+        sx={{
+          width: "60px",
+          height: "60px",
+          border: "6px solid #256EFF",
+          borderTop: "6px solid #FCFCFC",
+          borderRadius: "50%",
+          animation: "spin 1s linear infinite",
+        }}
+      />
+      <Typography sx={{ mt: 2, fontSize: "1.2rem" }}>
+        Welcome To Eleos Wellness...
+      </Typography>
 
-      <style jsx>{`
-        .loader {
-          width: 60px;
-          height: 60px;
-          border: 6px solid #256EFF;
-          border-top: 6px solid #FCFCFC;
-          border-radius: 50%;
-          animation: spin 1s linear infinite;
-        }
-
+      {/* CSS keyframes injected in <style> to avoid JSX scoping issues */}
+      <style>{`
         @keyframes spin {
-          0% {
-            transform: rotate(0deg);
-          }
-
-          100% {
-            transform: rotate(360deg);
-          }
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
       `}</style>
-    </div>
+    </Box>
   );
 }
